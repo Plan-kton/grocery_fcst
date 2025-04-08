@@ -1,0 +1,11 @@
+# Ignore all sensitive files
+*.csv
+*.json
+*.xlsx
+passwords.txt
+secret_config.json
+
+# Ignore system & Jupyter checkpoint files
+.DS_Store
+__pycache__/
+.ipynb_checkpoints/
