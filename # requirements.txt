@@ -5,7 +5,6 @@ pandas
 numpy
 matplotlib
 scipy
-requests
 
 # Modeling
 statsmodels
@@ -18,4 +17,6 @@ pytensor
 # Optional (for dashboard or styling)
 seaborn
 streamlit
-plotly
+
+# Optional (if using ADF test)
+statsmodels
