@@ -1,18 +1,79 @@
-# grocery_fcst
-This file forecasts US Grocery Sales
-The dependent variable is US Grocery Sales
-The indepdent variables are CPI Food-at-home, Real Disposable Income, Average Home Prices, and Covid dummy vars
+# Grocery Forecasting Engine
 
-The data is sources from the Federal Reserve Banks FRED database
-* US Grocery Sales: US Census Bureau, Advanced Retail Sales, Grocery
-* US Grocery Sales Lag 1: This reduces autocorrelation and is just the US Grocery Sales lagged one period
-* CPI Food-at-Home: U.S. Bureau of Labor Statistics
-* Real Disposable Income: US Bureau of Economic Analysis
-* Average Home Prices: S&P CoreLogic Case-Shiller U.S. National Home Price Index
+This repository contains a modular forecasting engine for U.S. grocery sales, using historical economic and consumer behavior indicators. The project is designed for flexibility, scalability, and transparency across different models and inputs.
 
-* CPI Food-at-Home, which is the average price index for grocery sales, is the biggest driver of grocery sales. When it grows or declines, so does grocery sales.  
-* Real Disposable Income is the second strongest driver.  When incomes are growing faster than inflation that drives grocery sales higher
-* Average home prices represents the wealth effect.  When home prices are increasing, people are spend more on groceries
+---
 
-Validation is next.  Last year the model predicted 2% YoY sales increase for CY 2024 and the year ended at 1.8%.  Could have been luck and we will find out as I 
-introduce holdout samples.
+## 📁 Project Structure
+
+```
+grocery_fcst/
+├── forecast_engine/        # Reusable modeling, plotting, and utility functions
+├── controls/               # Forecast-specific parameters (target, drivers, dates)
+├── data/                   # Raw and processed data
+│   └── inputs/             # Forward-looking input scenarios (ROC or absolute values)
+├── output/                 # Forecast results, plots, and summary tables
+├── notebooks/              # Jupyter notebooks to run forecasts
+├── dashboard/              # Streamlit dashboard (optional)
+├── README.md               # Project overview (this file)
+└── requirements.txt        # (optional) Python dependencies
+```
+
+---
+
+## 🚀 How to Run a Forecast
+
+1. **Install dependencies (if not already installed)**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Load and run the notebook**
+
+   ```bash
+   cd notebooks/
+   jupyter lab grocery_forecast_template.ipynb
+   ```
+
+3. **Customize your forecast**
+
+   * Edit or create a new file in `controls/` to define:
+
+     * Dependent variable
+     * Independent variables
+     * Date ranges
+   * Swap forward-looking inputs in `data/inputs/`
+
+---
+
+## 🔧 Forecasting Methods Included
+
+* OLS Regression (matrix, statsmodels, sklearn)
+* Bayesian Linear Regression
+* Residual Bootstrapping
+
+---
+
+## 📊 Visuals Included
+
+* Actual vs Fitted vs Forecast (line chart)
+* R² Fit (scatterplot)
+* Input variable trends
+* Distribution forecast with P5/P95 range
+
+---
+
+## 📦 Upcoming Enhancements
+
+* YOY charting with confidence bands
+* Automated Streamlit deployment
+* CLI-based forecast runner
+
+---
+
+## 👤 Maintained by
+
+**Plan-kton / Erick Karlson**
+
+> Forecasting with purpose, structure, and clarity.
