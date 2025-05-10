@@ -1,21 +1,22 @@
 # requirements.txt
 
 # Core packages
-pandas
+pandas==2.2.2
 numpy
 matplotlib
 scipy
 requests
 
 # Modeling
-statsmodels
-scikit-learn
-pymc
+statsmodels==0.14.1
+scikit-learn==1.3.2
+pymc==5.10.3
 
 # Time series and statistical tests
-pytensor
+pytensor==2.17.2
 
 # Optional (for dashboard or styling)
 seaborn
 streamlit
 plotly
+
