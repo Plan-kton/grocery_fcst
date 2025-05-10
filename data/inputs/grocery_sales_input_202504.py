@@ -36,22 +36,6 @@ forward_inputs = {
         pd.Timestamp('2025-08-01'): 2.0,
         pd.Timestamp('2025-09-01'): 2.0
     },
-    'covid1': {
-        pd.Timestamp('2025-04-01'): 0.0,
-        pd.Timestamp('2025-05-01'): 0.0,
-        pd.Timestamp('2025-06-01'): 0.0,
-        pd.Timestamp('2025-07-01'): 0.0,
-        pd.Timestamp('2025-08-01'): 0.0,
-        pd.Timestamp('2025-09-01'): 0.0
-    },
-    'covid2': {
-        pd.Timestamp('2025-04-01'): 0.0,
-        pd.Timestamp('2025-05-01'): 0.0,
-        pd.Timestamp('2025-06-01'): 0.0,
-        pd.Timestamp('2025-07-01'): 0.0,
-        pd.Timestamp('2025-08-01'): 0.0,
-        pd.Timestamp('2025-09-01'): 0.0
-    }
 }
 
 
