@@ -33,7 +33,7 @@ def fit_ols_statsmodels(X, y):
     return model, y_fitted
 
 def predict_ols_statsmodels(X, model):
-    X = sm.add_constant(X)
+    X = sm.add_constant(X, has_constant='add')  # <-- Force it
     return model.predict(X)
 
 # --- 3. Scikit-learn OLS ---

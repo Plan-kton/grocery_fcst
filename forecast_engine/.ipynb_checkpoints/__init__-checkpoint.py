@@ -57,5 +57,6 @@ from .forecast_preprocessing import (
     log_transform,
     winsorize_data,
     scale_features,
-    create_lagged_features
+    create_lagged_features,
+    inject_forward_inputs
 )

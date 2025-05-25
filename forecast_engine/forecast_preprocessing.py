@@ -108,3 +108,38 @@ def create_lagged_features(df, cols, lags=[1]):
             df[f"{col}_lag{lag}"] = df[col].shift(lag)
     return df
 
+# 10 load the Forward X's
+def inject_forward_inputs(df_test, ind, 
+                          cpi_fah=None, rdi_adj=None, home_price=None, 
+                          covid1=None, covid2=None):
+    """
+    Injects forward values for each independent variable into df_test.
+    
+    Args:
+        df_test (pd.DataFrame): DataFrame with forward dates as index
+        ind (list): List of independent variable names (strings)
+        Each variable (e.g., cpi_fah) must be passed explicitly as a dict.
+
+    Returns:
+        pd.DataFrame with injected forward values
+    """
+    df = df_test.copy()
+
+    # Bundle all possible variables into a dictionary
+    forward_vars = {
+        'cpi_fah': cpi_fah,
+        'rdi_adj': rdi_adj,
+        'home_price': home_price,
+        'covid1': covid1,
+        'covid2': covid2
+    }
+
+    for var in ind:
+        if var in forward_vars and forward_vars[var] is not None:
+            df[var] = df.index.map(forward_vars[var]).astype(float)
+        else:
+            raise KeyError(f"Missing forward data for variable: '{var}'")
+
+    return df
+
+

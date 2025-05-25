@@ -88,26 +88,28 @@ def summarize_forecast_table_with_colors(df_combined, forecast_years):
 
 # 4. Add y_comb and is_forecast
 
-def add_comb_and_flag(df, dep, forecast_col='y_fcst_ols', comb_col='y_comb'):
+def add_comb_and_flag(df, dep, forecast_col='y_fcst_ols', fitted_col='y_fitted'):
     """
-    Adds a unified column (y_comb) and a forecast flag (is_forecast) to the DataFrame.
-
-    Args:
-        df (pd.DataFrame): Combined historical + forecast DataFrame
-        dep (str): Name of the dependent variable column (e.g., 'sales')
-        forecast_col (str): Column name containing the forecasted values
-        comb_col (str): Name of the unified output column (default = 'y_comb')
-
-    Returns:
-        pd.DataFrame: Modified DataFrame with y_comb and is_forecast columns
+    Adds derived columns for modeling and analysis:
+    - y_estimated: fitted + forecast values (for visualizing the model's estimated signal)
+    - y_actual_or_forecast: actuals + forecast (for aggregations and YOY calcs)
+    - is_forecast: boolean flag where forecast values begin
     """
     df = df.copy()
 
-    df[comb_col] = df[forecast_col]
-    df[comb_col].fillna(df[dep], inplace=True)
-    df['is_forecast'] = df['y_fitted'].isna() & df[comb_col].notna()
+    # Fitted + Forecast = Estimated model output
+    df['y_estimated'] = df[forecast_col]
+    df.loc[df[forecast_col].isna(), 'y_estimated'] = df[fitted_col]
+
+    # Actuals + Forecast = Used for aggregation and YOY
+    df['y_actual_or_forecast'] = df[dep]
+    df.loc[df[dep].isna(), 'y_actual_or_forecast'] = df[forecast_col]
+
+    # Boolean flag to mark the forecast period
+    df['is_forecast'] = df[fitted_col].isna() & df[forecast_col].notna()
 
     return df
+
 
 #5. Converts weekly data to monthly
 

@@ -38,16 +38,29 @@ def plot_true_vs_predicted(y, y_fitted, title="True vs Predicted"):
 
 # 2. Plot Actuals vs Fitted vs Forecast
 
-def plot_actual_vs_fitted_vs_forecast(df_combined, dep):
+def plot_actual_vs_fitted_vs_forecast(df_combined, dep, estimated_col='y_estimated'):
     """
-    Line plot of Actuals, Fitted, and Forecast.
+    Line plot of Actuals, Fitted, and Forecast using standardized column names:
+    - Actuals: from dep
+    - Fitted: y_fitted
+    - Forecast: extension of fitted using y_estimated
     """
     plt.figure(figsize=(12, 6))
-    plt.plot(df_combined.index, df_combined[dep], label='Actuals')
+
+    # Plot actuals where y_fitted is available (training period)
+    actuals = df_combined[df_combined['y_fitted'].notna()]
+    plt.plot(actuals.index, actuals[dep], label='Actuals')
+
+    # Plot fitted values
     plt.plot(df_combined.index, df_combined['y_fitted'], label='Fitted', linestyle='--')
 
-    last_fitted_date = df_combined['y_fitted'].dropna().index.max()
-    plt.axvline(x=last_fitted_date, color='red', linestyle='--', label='Forecast Start')
+    # Forecast = estimated values after the last fitted date
+    forecast_start = df_combined['y_fitted'].dropna().index.max()
+    forecast = df_combined[df_combined.index > forecast_start]
+    plt.plot(forecast.index, forecast[estimated_col], label='Forecast', linestyle=':')
+
+    # Vertical line marking start of forecast
+    plt.axvline(x=forecast_start, color='red', linestyle='--', label='Forecast Start')
 
     plt.title('Actuals, Fitted, and Forecast')
     plt.xlabel('Year')
@@ -55,6 +68,8 @@ def plot_actual_vs_fitted_vs_forecast(df_combined, dep):
     plt.grid(True)
     plt.legend()
     plt.show()
+
+
 
 # 3. Plot All Forecasts Together
 
