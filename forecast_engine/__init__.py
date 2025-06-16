@@ -2,14 +2,11 @@
 
 # OLS Engine
 from .ols_engine import (
-    fit_ols_matrix,
-    predict_ols_matrix,
     fit_ols_statsmodels,
     predict_ols_statsmodels,
     fit_ols_sklearn,
     predict_ols_sklearn,
-    evaluate_model,
-    add_fitted_and_residuals
+    evaluate_model  
 )
 
 # Bayesian Engine
@@ -23,28 +20,28 @@ from .bayesian_engine import (
 from .bootstrap_engine import (
     simulate_bootstrap_forecasts,
     check_residual_stationarity,
-    summarize_bootstrap_distribution
+    aggregate_forecast_distribution
 )
 
 # Plotting
 from .plotting import (
     plot_true_vs_predicted,
+    plot_actual_vs_fitted_series,
     plot_actual_vs_fitted_vs_forecast,
     plot_selected_forecasts,
     plot_bootstrap_forecast,
     plot_input_variables,
-    plot_aggregate_forecast_distribution  # ✅ new
+    plot_aggregate_forecast_distribution,
+    plot_aggregate_forecast_distribution_yoy,
+    lineplot_list,
+    plot_final_chart
 )
 
 # Utilities
 from .utils import (
     get_evaluation_metrics,
     summarize_forecast_table,
-    summarize_forecast_table_with_colors,
-    add_comb_and_flag,
-    calculate_yoy,
-    convert_weekly_to_monthly,
-    convert_weekly_to_fiscal
+    calculate_yoy
 )
 
 # Preprocessing (if you created forecast_preprocessing.py)
@@ -57,6 +54,10 @@ from .forecast_preprocessing import (
     log_transform,
     winsorize_data,
     scale_features,
-    create_lagged_features,
-    inject_forward_inputs
+    create_lagged_features
+)
+
+from .data_processing import (
+    ingest_data,
+    forward_values
 )

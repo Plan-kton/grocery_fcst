@@ -5,21 +5,6 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression as SklearnLinearRegression
 import statsmodels.api as sm
 
-# --- 1. Matrix-Based OLS ---
-def fit_ols_matrix(X, y):
-    X = np.array(X)
-    y = np.array(y)
-    ones = np.ones((X.shape[0], 1))
-    X_aug = np.hstack((ones, X))
-    beta = np.linalg.pinv(X_aug.T @ X_aug) @ X_aug.T @ y
-    return beta, y_fitted
-
-def predict_ols_matrix(X, beta):
-    X = np.array(X)
-    ones = np.ones((X.shape[0], 1))
-    X_aug = np.hstack((ones, X))
-    return X_aug @ beta
-
 # --- 2. Statsmodels OLS ---
 def fit_ols_statsmodels(X, y):
     """
@@ -79,9 +64,4 @@ def evaluate_model(y, y_fitted, model_name=None):
 
     return mse, mae, r2, mape
 
-# --- 5. Add Fitted + Residuals ---
-def add_fitted_and_residuals(df, y_true, y_pred):
-    df = df.copy()
-    df['y_fitted'] = pd.Series(y_pred, index=y_true.index)
-    df['residuals'] = y_true - df['y_fitted']
-    return df
+
